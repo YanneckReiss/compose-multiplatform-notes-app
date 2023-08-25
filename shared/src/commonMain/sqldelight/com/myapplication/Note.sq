@@ -1,0 +1,15 @@
+import kotlinx.datetime.Instant;
+
+CREATE TABLE note (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  content TEXT NOT NULL,
+  date_created INTEGER AS Instant NOT NULL
+);
+
+findAll:
+SELECT *
+FROM note;
+
+insert:
+INSERT INTO note(id, content, date_created)
+VALUES ( ?,?,  ?);

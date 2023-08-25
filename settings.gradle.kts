@@ -1,4 +1,4 @@
-rootProject.name = "MyApplication"
+rootProject.name = "Compose Multiplatform Notes App"
 
 include(":androidApp")
 include(":shared")
@@ -7,6 +7,7 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenCentral()
         google()
     }
 
@@ -14,6 +15,8 @@ pluginManagement {
         val kotlinVersion = extra["kotlin.version"] as String
         val agpVersion = extra["agp.version"] as String
         val composeVersion = extra["compose.version"] as String
+        val sqlDelightVersion = extra["sqldelight.version"] as String
+        val koinVersion = extra["koin.version"] as String
 
         kotlin("jvm").version(kotlinVersion)
         kotlin("multiplatform").version(kotlinVersion)
@@ -23,6 +26,8 @@ pluginManagement {
         id("com.android.library").version(agpVersion)
 
         id("org.jetbrains.compose").version(composeVersion)
+        id("app.cash.sqldelight").version(sqlDelightVersion)
+        id("io.insert-koin").version(koinVersion)
     }
 }
 
