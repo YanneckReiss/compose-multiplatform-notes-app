@@ -41,7 +41,11 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
+
+        commonMain {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -50,13 +54,13 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation("app.cash.sqldelight:coroutines-extensions:$sqlDelightVersion")
                 implementation("io.insert-koin:koin-core:$koinVersion")
-                implementation("io.insert-koin:koin-compose:1.0.4")
+                implementation("io.insert-koin:koin-compose:1.1.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDateTime")
                 implementation("com.rickclephas.kmm:kmm-viewmodel-core:$kmmViewModel")
                 implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
                 implementation("io.insert-koin:koin-test:$koinVersion")
@@ -65,31 +69,27 @@ kotlin {
                 implementation("app.cash.turbine:turbine:1.0.0")
             }
         }
-        val androidMain by getting {
+
+        androidMain {
             dependencies {
-                api("androidx.activity:activity-compose:1.6.1")
+                api("androidx.activity:activity-compose:1.8.0")
                 api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api("androidx.core:core-ktx:1.12.0")
                 implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
-                implementation("io.insert-koin:koin-androidx-compose:3.4.6")
-                implementation("io.insert-koin:koin-android:3.4.3")
+                implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+                implementation("io.insert-koin:koin-android:3.5.0")
 
             }
         }
-        val androidUnitTest by getting {
+
+        androidNativeTest {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("io.mockk:mockk:1.13.7")
+                implementation("io.mockk:mockk:1.13.8")
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+
+        iosMain {
             dependencies {
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
             }
